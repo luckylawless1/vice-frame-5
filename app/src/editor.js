@@ -259,7 +259,13 @@ function wirePanel() {
   });
   el('in-zoom').addEventListener('input', () => {
     const panel = activePanel();
-    if (panel) { panel.zoom = parseFloat(el('in-zoom').value); redraw(); }
+    if (!panel) return;
+    const requested = parseFloat(el('in-zoom').value);
+    // Ignore a transient unparseable slider value instead of poisoning
+    // the panel's zoom with NaN (which would blank the photo for good).
+    if (!Number.isFinite(requested)) return;
+    panel.zoom = Math.min(3, Math.max(1, requested));
+    redraw();
   });
   el('btn-reframe').addEventListener('click', () => {
     const panel = activePanel();

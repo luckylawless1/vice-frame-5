@@ -62,7 +62,18 @@ function main(): void {
   } as const;
 
   const dossierBytes = buildDossier(outputRoot, dossierCaps);
+  if (dossierBytes.length === 0) {
+    throw new Error('dossier builder returned no bytes; refusing to hand in an empty summary');
+  }
   writeFileSync(joinPath(outputRoot, 'dossier.json'), dossierBytes);
+  console.log(`VICE FRAME 5 handed in: app/ + screenshots/ -> ${outputRoot} (dossier ${dossierBytes.length} bytes)`);
 }
 
-main();
+// A failed hand-in should say so plainly and exit non-zero, rather than
+// leaving a half-copied output directory that looks successful.
+try {
+  main();
+} catch (problem) {
+  console.error(`VICE FRAME 5 hand-in failed: ${(problem as Error).message}`);
+  process.exitCode = 1;
+}
