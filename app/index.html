@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VICE FRAME 5 — Cover Art Studio</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="panel" id="panel">
+    <header class="brand">
+      <h1>VICE FRAME <em>5</em></h1>
+      <p>Build multi-panel, magazine-style cover art from any photo. Choose a panel, drop a photo in, frame it, ship the PNG.</p>
+    </header>
+
+    <section class="block">
+      <h2>Photo shelf</h2>
+      <div id="shelf" class="shelf"></div>
+      <label class="drop-note">Add your own photos
+        <input id="picker" type="file" accept="image/*" multiple>
+      </label>
+      <p class="fine">Tip: you can also drag image files straight onto the cover.</p>
+    </section>
+
+    <section class="block">
+      <h2>Cover words</h2>
+      <label class="field">Title
+        <input id="in-title" type="text" maxlength="42" value="LAS LUMEN HEAT">
+      </label>
+      <label class="field">Tagline
+        <input id="in-tagline" type="text" maxlength="48" value="ONE CITY. NO MERCY.">
+      </label>
+      <label class="field">Caption
+        <input id="in-caption" type="text" maxlength="60" value="THE CITY NEVER SLEEPS">
+      </label>
+    </section>
+
+    <section class="block">
+      <h2>Layout</h2>
+      <div id="layout-row" class="row"></div>
+    </section>
+
+    <section class="block">
+      <h2>Active panel</h2>
+      <label class="field">Colour grade
+        <select id="in-grade"></select>
+      </label>
+      <button id="btn-grade-all" type="button">Use this grade on every panel</button>
+      <label class="field">Zoom
+        <input id="in-zoom" type="range" min="1" max="3" step="0.01" value="1">
+      </label>
+      <button id="btn-reframe" type="button">Reset this panel's framing</button>
+      <p class="fine">Drag on the cover to pan. Scroll to zoom. Double-click a panel to reset it. Arrow keys nudge the active panel; hold Shift for bigger nudges.</p>
+    </section>
+
+    <section class="block">
+      <h2>Cover dressing</h2>
+      <label class="tick"><input id="opt-palm" type="checkbox" checked> Neon palm sticker</label>
+      <label class="tick"><input id="opt-burst" type="checkbox" checked> “NEW!” starburst</label>
+      <label class="tick"><input id="opt-sun" type="checkbox"> Sun badge</label>
+      <label class="tick"><input id="opt-grain" type="checkbox" checked> Film grain</label>
+    </section>
+
+    <section class="block">
+      <h2>Export</h2>
+      <div id="size-row" class="row"></div>
+      <button id="btn-export" type="button" class="go">Export PNG</button>
+      <button id="btn-export-all" type="button">Export all 3 sizes</button>
+      <p id="note" role="status"></p>
+    </section>
+  </aside>
+
+  <main class="stage" id="stage">
+    <canvas id="art" width="1080" height="1080" aria-label="Cover preview canvas"></canvas>
+  </main>
+</div>
+<script type="module" src="./src/editor.js"></script>
+</body>
+</html>
